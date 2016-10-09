@@ -8,35 +8,69 @@
 
 import Foundation
 
+var askAgain: Bool = true
 
-
-print("enter a number")
-var num1 = readLine(strippingNewline: true)
-print("enter an operation")
-var op = readLine(strippingNewline: true)
-print("enter a number")
-var num2 = readLine(strippingNewline: true)
-
+var moreInput: Bool = true
+var elements: [String] = []
 var result = 0
 
-if (op == "+"){
-    result = Int(num1!)! + Int(num2!)!
-} else if (op == "-") {
-    result = Int(num1!)! - Int(num2!)!
-} else if (op == "/") {
-    result = Int(num1!)! / Int(num2!)!
-} else if (op == "%"){
-    result = Int(num1!)! % Int(num2!)!
-} else {
-    print("invalid operand")
+
+print("Enter an expression, separating elements with returns OR enter 1 value and fact or any number of values and count or avg")
+
+
+while moreInput {
+    elements.append(readLine(strippingNewline: true)!)
+    var arrayLength = elements.count //array length
+    
+    if (arrayLength == 3) {
+        if (elements[1] == "+" || elements[1] == "-" || elements[1] == "*" || elements[1] == "/" || elements[1] == "%"){
+            moreInput = false //will exit while loop
+            
+            if (elements[1] == "+"){
+                result = Int(elements[0])! + Int(elements[2])!
+            } else if (elements[1] == "-") {
+                result = Int(elements[0])! - Int(elements[2])!
+            } else if (elements[1] == "/") {
+                result = Int(elements[0])! / Int(elements[2])!
+            } else if (elements[1] == "%"){
+                result = Int(elements[0])! % Int(elements[2])!
+            } else if (elements[1] == "*") {
+                result = Int(elements[0])! * Int(elements[2])!
+            }
+            
+            print("Result: " + String(result))
+        }
+    }
+    
+    if (elements[elements.count - 1] == "count") {
+        moreInput = false
+        print("Result: " + String(elements.count - 1))
+    }
+    
+    if (elements[elements.count - 1] == "avg") {
+        moreInput = false
+        var numElements = elements.count - 2
+        var add = 0
+        for int in 1...numElements {
+            add += Int(elements[int])!
+        }
+        result = add / numElements
+        print("Result: " + String(result))
+    }
+    
+    if (elements[elements.count - 1] == "fact") {
+        moreInput = false
+        var bound = Int(elements[0])//number to take factorial of
+        var numToMult = bound
+        var sum = 1
+        
+        while (numToMult != 0) {
+            sum *= numToMult!
+            numToMult = numToMult! - 1
+        }
+        print("Result: " + String(sum))
+    }
 }
 
-print("The result is \(result)")
-
-//if 3 chars entered check for valid operand in the middle and output
-//correct result
-//otherwise user can enter as many numbers as possible and type
-//"count", "avg" or "fact" at the end
-//write count, avg, and fact methods
 
 
